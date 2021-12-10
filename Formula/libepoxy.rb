@@ -26,13 +26,18 @@ class Libepoxy < Formula
   depends_on "pkg-config" => :build
   depends_on "python@3.10" => :build
 
+  patch do
+    url "https://github.com/anholt/libepoxy/pull/239.patch"
+    sha256 "82560d1126be99c1ad56e4ff8c92798e4c35817fff45f58946ab62174fc260c6"
+  end
+
   on_linux do
     depends_on "freeglut"
   end
 
   def install
     mkdir "build" do
-      system "meson", *std_meson_args, ".."
+      system "meson", *std_meson_args, "..", "-Degl=yes", "-Dtests=false"
       system "ninja"
       system "ninja", "install"
     end

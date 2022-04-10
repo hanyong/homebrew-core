@@ -34,6 +34,8 @@ class Qemu < Formula
   depends_on "pixman"
   depends_on "snappy"
   depends_on "vde"
+  depends_on "spice"
+  depends_on "libepoxy"
 
   on_linux do
     depends_on "attr"
@@ -140,7 +142,13 @@ class Qemu < Formula
       --enable-virtfs
       --extra-cflags=-DNCURSES_WIDECHAR=1
       --disable-sdl
+      --disable-gtk
+      --enable-spice
+      --target-list=x86_64-softmmu,aarch64-softmmu
+      --disable-tools
+      --enable-opengl
     ]
+      #--enable-virglrenderer
     # Sharing Samba directories in QEMU requires the samba.org smbd which is
     # incompatible with the macOS-provided version. This will lead to
     # silent runtime failures, so we set it to a Homebrew path in order to
